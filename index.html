@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reino de Pirlo</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #00bfff; /* Azul claro */
+        color: #ffffff; /* Blanco */
+        text-align: center;
+        padding-top: 50px;
+        overflow: hidden; /* Evita que el confeti se desborde */
+      }
+
+      .container {
+        position: relative;
+        width: 500px;
+        margin: 0 auto;
+      }
+
+      .pirlo-image {
+        display: block;
+        width: 100%;
+        max-width: 400px;
+        margin: 20px auto;
+        border-radius: 15px;
+        border-top: 10px solid #40e0d0; /* Turquesa */
+        border-bottom: 10px solid #40e0d0; /* Turquesa */
+      }
+
+      .title {
+        font-size: 32px;
+        margin-bottom: 20px;
+        letter-spacing: 2px;
+      }
+
+      .subtitle {
+        font-size: 24px;
+        margin-top: 20px;
+        letter-spacing: 1px;
+      }
+
+      /* Botón de audio */
+      .audio-button {
+        display: block;
+        width: 150px;
+        margin: 20px auto;
+        padding: 10px;
+        background-color: #ffd700; /* Oro */
+        color: #000000; /* Negro */
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="title">Hola soy Pirlo</h1>
+      <img src="pirloKing.PNG" alt="Imagen de Pirlo" class="pirlo-image" />
+      <p class="subtitle">Y este es mi reino, has sido hackeado</p>
+      <button class="audio-button" id="audioControl">Se más cool</button>
+    </div>
+
+    <script>
+      // Efecto de confeti
+      function confetti() {
+        const confettiElements = ["❤️", "💙", "💚", "💛", "💜", "🧡"];
+        const fragment = document.createDocumentFragment();
+
+        for (let i = 0; i < 50; i++) {
+          const confetti = document.createElement("span");
+          confetti.innerText =
+            confettiElements[
+              Math.floor(Math.random() * confettiElements.length)
+            ];
+          confetti.style.position = "absolute";
+          confetti.style.left = `${Math.random() * window.innerWidth}px`;
+          confetti.style.animation = `confetti-fall ${
+            Math.random() * 3 + 2
+          }s ease-in-out infinite`;
+          fragment.appendChild(confetti);
+        }
+
+        document.body.appendChild(fragment);
+      }
+
+      // Animación de caída de confeti
+      const style = document.createElement("style");
+      style.innerHTML = `
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100vh); }
+            100% { transform: translateY(100vh); }
+        }
+    `;
+      document.head.appendChild(style);
+
+      // Reproducir o pausar audio
+      const audio = new Audio(
+        "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+      ); // Audio de ejemplo
+      let isPlaying = false;
+
+      document
+        .getElementById("audioControl")
+        .addEventListener("click", function () {
+          if (isPlaying) {
+            audio.pause();
+            audio.currentTime = 0; // Reiniciar el audio al inicio
+            document.getElementById("audioControl").textContent = "Se más cool";
+          } else {
+            audio.play();
+            document.getElementById("audioControl").textContent = "Menos cool";
+          }
+          isPlaying = !isPlaying;
+        });
+
+      // Llamar a la función de confeti
+      confetti();
+    </script>
+  </body>
+</html>
